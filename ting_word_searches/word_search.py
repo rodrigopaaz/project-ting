@@ -23,7 +23,22 @@ def exists_word(word, instance):
 
 
 def search_by_word(word, instance):
-    """Aqui irá sua implementaçã"""
+    check_word = txt_importer(word)
+    if not check_word:
+        return []
+    result = {
+        'palavra': word,
+        'arquivo': instance.queue[0]['nome_do_arquivo'],
+        'ocorrencias': [],
+    }
+    for i, line in enumerate(instance.queue[0]['linhas_do_arquivo'],
+                             start=1):
+        if word in line.lower():
+            result['ocorrencias'].append({'linha': i, 'conteudo': line})
+    if len(result['ocorrencias']) == 0:
+        return []
+    print(result)
+    return [result]
 
 
 project = Queue()
